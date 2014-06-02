@@ -27,7 +27,6 @@ namespace ClientSideDevelopment.Repositories.Concrete
         /// <summary>
         /// Initializes a new instance of the <see cref="MovieRepository" /> class.
         /// </summary>
-        /// <param name="clientSideDevelopmentContext">The client side development context.</param>
         public MovieRepository()
         {
             this.context = new ClientSideDevelopmentContext();
@@ -40,6 +39,19 @@ namespace ClientSideDevelopment.Repositories.Concrete
         public IEnumerable<Movie> GetAllMovies()
         {
             return this.context.Movies;
+        }
+
+        /// <summary>
+        /// Adds the new movie.
+        /// </summary>
+        /// <param name="movie">The movie.</param>
+        /// <returns>The movie that has been added.</returns>
+        public Movie AddNewMovie(Movie movie)
+        {
+            this.context.Movies.Add(movie);
+            this.context.SaveChanges();
+
+            return movie;
         }
     }
 }

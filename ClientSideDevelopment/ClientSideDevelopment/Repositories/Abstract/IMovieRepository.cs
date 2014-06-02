@@ -23,5 +23,12 @@ namespace ClientSideDevelopment.Repositories.Abstract
         /// </summary>
         /// <returns>The movies.</returns>
         IEnumerable<Movie> GetAllMovies();
+
+        /// <summary>
+        /// Adds the new movie.
+        /// </summary>
+        /// <param name="movie">The movie.</param>
+        /// <returns>The movie that has been added.</returns>
+        Movie AddNewMovie(Movie movie);
     }
 }

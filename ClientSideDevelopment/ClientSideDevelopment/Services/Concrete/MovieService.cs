@@ -42,5 +42,18 @@ namespace ClientSideDevelopment.Services.Concrete
         {
             return this.movieRepository.GetAllMovies();
         }
+
+        /// <summary>
+        /// Adds the new movie.
+        /// </summary>
+        /// <param name="title">The movie title.</param>
+        /// <param name="releaseYear">The release year.</param>
+        /// <returns>The movie that has been added.</returns>
+        public Movie AddNewMovie(string title, int releaseYear)
+        {
+            var movie = new Movie { Title = title, ReleaseYear = releaseYear };
+
+            return this.movieRepository.AddNewMovie(movie);
+        }
     }
 }

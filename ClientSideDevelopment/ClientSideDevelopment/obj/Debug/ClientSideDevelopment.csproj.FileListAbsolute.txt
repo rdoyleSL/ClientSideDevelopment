@@ -30,4 +30,3 @@ C:\Dev\ClientSideDevelopment\ClientSideDevelopment\ClientSideDevelopment\obj\Deb
 C:\Dev\ClientSideDevelopment\ClientSideDevelopment\ClientSideDevelopment\obj\Debug\ClientSideDevelopment.pdb
 C:\Dev\ClientSideDevelopment\ClientSideDevelopment\ClientSideDevelopment\bin\Ninject.dll
 C:\Dev\ClientSideDevelopment\ClientSideDevelopment\ClientSideDevelopment\bin\Ninject.xml
-C:\Dev\ClientSideDevelopment\ClientSideDevelopment\ClientSideDevelopment\obj\Debug\ClientSideDevelopment.csprojResolveAssemblyReference.cache

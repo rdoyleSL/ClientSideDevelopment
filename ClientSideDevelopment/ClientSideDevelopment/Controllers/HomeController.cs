@@ -9,6 +9,7 @@
 
 namespace ClientSideDevelopment.Controllers
 {
+    using System;
     using System.Web.Mvc;
 
     using ClientSideDevelopment.Services.Abstract;
@@ -44,6 +45,31 @@ namespace ClientSideDevelopment.Controllers
             var model = new IndexViewModel { Movies = movies };
 
             return this.View(model);
+        }
+
+        /// <summary>
+        /// Adds the new movie.
+        /// </summary>
+        /// <returns>The <see cref="ActionResult"/>.</returns>
+        public ActionResult AddNewMovie()
+        {
+            return this.View();
+        }
+
+        /// <summary>
+        /// Adds the new movie.
+        /// </summary>
+        /// <param name="movieTitle">The movie title.</param>
+        /// <param name="releaseYear">The release year.</param>
+        /// <returns>
+        /// The <see cref="ActionResult" />.
+        /// </returns>
+        [HttpPost]
+        public ActionResult AddNewMovie(string movieTitle, int releaseYear)
+        {
+            this.movieService.AddNewMovie(movieTitle, releaseYear);
+
+            return this.View();
         }
     }
 }

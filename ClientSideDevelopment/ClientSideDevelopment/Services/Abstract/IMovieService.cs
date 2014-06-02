@@ -23,5 +23,13 @@ namespace ClientSideDevelopment.Services.Abstract
         /// </summary>
         /// <returns>The movies.</returns>
         IEnumerable<Movie> GetAllMovies();
+
+        /// <summary>
+        /// Adds the new movie.
+        /// </summary>
+        /// <param name="title">The movie title.</param>
+        /// <param name="releaseYear">The release year.</param>
+        /// <returns>The movie that has been added.</returns>
+        Movie AddNewMovie(string title, int releaseYear);
     }
 }
