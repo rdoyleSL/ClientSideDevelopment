@@ -140,9 +140,13 @@
     <Compile Include="Models\Director.cs" />
     <Compile Include="Models\Movie.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Abstract\IDirectorRepository.cs" />
     <Compile Include="Repositories\Abstract\IMovieRepository.cs" />
+    <Compile Include="Repositories\Concrete\DirectorRepository.cs" />
     <Compile Include="Repositories\Concrete\MovieRepository.cs" />
+    <Compile Include="Services\Abstract\IDirectorService.cs" />
     <Compile Include="Services\Abstract\IMovieService.cs" />
+    <Compile Include="Services\Concrete\DirectorService.cs" />
     <Compile Include="Services\Concrete\MovieService.cs" />
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />
   </ItemGroup>

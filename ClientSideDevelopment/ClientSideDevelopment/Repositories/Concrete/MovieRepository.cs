@@ -10,6 +10,8 @@
 namespace ClientSideDevelopment.Repositories.Concrete
 {
     using System.Collections.Generic;
+    using System.Data.Entity;
+    using System.Linq;
 
     using ClientSideDevelopment.Models;
     using ClientSideDevelopment.Repositories.Abstract;
@@ -20,25 +22,15 @@ namespace ClientSideDevelopment.Repositories.Concrete
     public class MovieRepository : IMovieRepository
     {
         /// <summary>
-        /// The client side development context.
-        /// </summary>
-        private readonly ClientSideDevelopmentContext context;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="MovieRepository" /> class.
-        /// </summary>
-        public MovieRepository()
-        {
-            this.context = new ClientSideDevelopmentContext();
-        }
-
-        /// <summary>
         /// Gets all the movies.
         /// </summary>
         /// <returns>The movies.</returns>
         public IEnumerable<Movie> GetAllMovies()
         {
-            return this.context.Movies;
+            using (var context = new ClientSideDevelopmentContext())
+            {
+                return context.Movies.Include(m => m.Director).ToList();
+            }
         }
 
         /// <summary>
@@ -48,8 +40,11 @@ namespace ClientSideDevelopment.Repositories.Concrete
         /// <returns>The movie that has been added.</returns>
         public Movie AddNewMovie(Movie movie)
         {
-            this.context.Movies.Add(movie);
-            this.context.SaveChanges();
+            using (var context = new ClientSideDevelopmentContext())
+            {
+                context.Movies.Add(movie);
+                context.SaveChanges();
+            }
 
             return movie;
         }

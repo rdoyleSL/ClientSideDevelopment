@@ -10,6 +10,7 @@
         <tr>
             <th>Title</th>
             <th>Release Year</th>
+            <th>Director</th>
         </tr>
     </thead>
     <tbody>
@@ -18,6 +19,10 @@
             <tr>
                 <td>@movie.Title</td>
                 <td>@movie.ReleaseYear</td>
+                @if (movie.Director != null)
+                {
+                    <td>@movie.Director.FirstName @movie.Director.Surname</td>
+                }
             </tr>   
         }
     </tbody>

@@ -32,6 +32,6 @@ namespace ClientSideDevelopment.Models
         /// <summary>
         /// Gets or sets the director.
         /// </summary>
-        public virtual Director Director { get; set; }
+        public Director Director { get; set; }
     }
 }

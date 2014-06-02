@@ -9,7 +9,7 @@
 
 namespace ClientSideDevelopment.Controllers
 {
-    using System;
+    using System.Linq;
     using System.Web.Mvc;
 
     using ClientSideDevelopment.Services.Abstract;
@@ -26,12 +26,19 @@ namespace ClientSideDevelopment.Controllers
         private readonly IMovieService movieService;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="HomeController"/> class.
+        /// The director service.
+        /// </summary>
+        private readonly IDirectorService directorService;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="HomeController" /> class.
         /// </summary>
         /// <param name="movieService">The movie Service.</param>
-        public HomeController(IMovieService movieService)
+        /// <param name="directorService">The director Service.</param>
+        public HomeController(IMovieService movieService, IDirectorService directorService)
         {
             this.movieService = movieService;
+            this.directorService = directorService;
         }
 
         /// <summary>
@@ -40,7 +47,7 @@ namespace ClientSideDevelopment.Controllers
         /// <returns>The <see cref="ActionResult"/>.</returns>
         public ActionResult Index()
         {
-            var movies = this.movieService.GetAllMovies();
+            var movies = this.movieService.GetAllMovies().ToList();
 
             var model = new IndexViewModel { Movies = movies };
 
