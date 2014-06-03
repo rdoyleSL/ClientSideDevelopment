@@ -60,7 +60,10 @@ namespace ClientSideDevelopment.Controllers
         /// <returns>The <see cref="ActionResult"/>.</returns>
         public ActionResult AddNewMovie()
         {
-            return this.View();
+            var directors = this.directorService.GetAllDirectors();
+            var model = new AddNewMovieViewModel { Directors = directors };
+
+            return this.View(model);
         }
 
         /// <summary>
@@ -68,15 +71,18 @@ namespace ClientSideDevelopment.Controllers
         /// </summary>
         /// <param name="movieTitle">The movie title.</param>
         /// <param name="releaseYear">The release year.</param>
+        /// <param name="directorId">The director identifier.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
         [HttpPost]
-        public ActionResult AddNewMovie(string movieTitle, int releaseYear)
+        public ActionResult AddNewMovie(string movieTitle, int releaseYear, int directorId)
         {
-            this.movieService.AddNewMovie(movieTitle, releaseYear);
+            this.movieService.AddNewMovie(movieTitle, releaseYear, directorId);
+            var directors = this.directorService.GetAllDirectors();
+            var model = new AddNewMovieViewModel { Directors = directors };
 
-            return this.View();
+            return this.View(model);
         }
     }
 }

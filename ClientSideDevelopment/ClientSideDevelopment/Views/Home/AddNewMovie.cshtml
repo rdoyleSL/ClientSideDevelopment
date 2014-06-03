@@ -1,4 +1,5 @@
-﻿@{
+﻿@model ClientSideDevelopment.ViewModels.Home.AddNewMovieViewModel
+@{
     ViewBag.Title = "Add New Movie";
 }
 
@@ -11,6 +12,14 @@
 <label for="releaseYear">Release Year:
     <input type="text" id="releaseYear" name="releaseYear" />
 </label>
+<label for="director">Director:
+    <select id="director" name="director">
+        @foreach (var director in Model.Directors)
+        {
+            <option value="@director.DirectorId">@director.FirstName @director.Surname</option>
+        }
+    </select>
+</label>
 
 <button onclick="addNewMovie()">Add</button>
 
@@ -18,13 +27,15 @@
     function addNewMovie() {
         var movieTitle = $('#movieTitle').val();
         var releaseYear = $('#releaseYear').val();
+        var directorId = $('#director').val();
 
         $.ajax({
             url: 'AddNewMovie',
             type: 'POST',
             data: {
                 movieTitle: movieTitle,
-                releaseYear: releaseYear
+                releaseYear: releaseYear,
+                directorId: directorId
             }
         });
     };

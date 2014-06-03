@@ -29,7 +29,8 @@ namespace ClientSideDevelopment.Services.Abstract
         /// </summary>
         /// <param name="title">The movie title.</param>
         /// <param name="releaseYear">The release year.</param>
+        /// <param name="directorId">The director identifier.</param>
         /// <returns>The movie that has been added.</returns>
-        Movie AddNewMovie(string title, int releaseYear);
+        Movie AddNewMovie(string title, int releaseYear, int directorId);
     }
 }

@@ -23,5 +23,12 @@ namespace ClientSideDevelopment.Repositories.Abstract
         /// </summary>
         /// <returns>The directors.</returns>
         IEnumerable<Director> GetAllDirectors();
+
+        /// <summary>
+        /// Gets the director.
+        /// </summary>
+        /// <param name="directorId">The director identifier.</param>
+        /// <returns>The director.</returns>
+        Director GetDirector(int directorId);
     }
 }

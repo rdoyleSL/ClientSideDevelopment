@@ -42,5 +42,15 @@ namespace ClientSideDevelopment.Services.Concrete
         {
             return this.directorRepository.GetAllDirectors();
         }
+
+        /// <summary>
+        /// Gets the director.
+        /// </summary>
+        /// <param name="directorId">The director identifier.</param>
+        /// <returns>The director.</returns>
+        public Director GetDirector(int directorId)
+        {
+            return this.directorRepository.GetDirector(directorId);
+        }
     }
 }

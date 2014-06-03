@@ -31,5 +31,18 @@ namespace ClientSideDevelopment.Repositories.Concrete
                 return context.Directors.ToList();
             }
         }
+
+        /// <summary>
+        /// Gets the director.
+        /// </summary>
+        /// <param name="directorId">The director identifier.</param>
+        /// <returns>The director.</returns>
+        public Director GetDirector(int directorId)
+        {
+            using (var context = new ClientSideDevelopmentContext())
+            {
+                return context.Directors.SingleOrDefault(d => d.DirectorId == directorId);
+            }
+        }
     }
 }
