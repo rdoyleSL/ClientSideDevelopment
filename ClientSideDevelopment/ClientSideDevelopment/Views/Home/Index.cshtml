@@ -28,4 +28,47 @@
     </tbody>
 </table>
 
-<a href="~/Home/AddNewMovie">Add new movie</a>
+<button onclick="addNewMovie()">Add New Movie</button>
+
+<div id="addNewMovie" style="display: none">
+    <form>
+        <label for="movieTitle">Title:
+            <input type="text" id="movieTitle" name="movieTitle" />
+        </label>
+        <label for="releaseYear">Release Year:
+            <input type="text" id="releaseYear" name="releaseYear" />
+        </label>
+        <label for="directorId">Director:
+            <select id="directorId" name="directorId">
+                @foreach (var director in Model.Directors)
+                {
+                    <option value="@director.DirectorId">@director.FirstName @director.Surname</option>
+                }
+            </select>
+        </label>
+    </form>
+    <button onclick="submitForm()">Submit</button>
+</div>
+
+@section scripts
+{
+    <script type="text/javascript">
+        function addNewMovie() {
+            $('#addNewMovie').show();
+        }
+
+        function submitForm() {
+            var data = {
+                movieTitle: $('#movieTitle').val(),
+                releaseYear: $('#releaseYear').val(),
+                directorId: $('#directorId').val()
+            };
+
+            $.ajax({
+                url: 'AddNewMovie',
+                type: 'POST',
+                data: data
+            });
+        }
+    </script>
+}

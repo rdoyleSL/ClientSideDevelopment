@@ -32,7 +32,7 @@ namespace ClientSideDevelopment
                                     new Director { DateOfBirth = new DateTime(1959, 1, 28), FirstName = "Frank", Surname = "Darabont", Gender = "Male" },
                                     new Director { DateOfBirth = new DateTime(1939, 4, 7), FirstName = "Francis Ford", Surname = "Coppola", Gender = "Male" },
                                     new Director { DateOfBirth = new DateTime(1970, 7, 30), FirstName = "Christopher", Surname = "Nolan", Gender = "Male" },
-                                    new Director { DateOfBirth = new DateTime(1963, 3, 27), FirstName = "Quentin", Surname = "Taantinor", Gender = "Male" },
+                                    new Director { DateOfBirth = new DateTime(1963, 3, 27), FirstName = "Quentin", Surname = "Tarantino", Gender = "Male" },
                                     new Director { DateOfBirth = new DateTime(1929, 1, 3), FirstName = "Sergio", Surname = "Leone", Gender = "Male" },
                                     new Director { DateOfBirth = new DateTime(1946, 12, 18), FirstName = "Steven", Surname = "Spielberg", Gender = "Male" },
                                     new Director { DateOfBirth = new DateTime(1926, 6, 25), FirstName = "Sidney", Surname = "Lumet", Gender = "Male" },

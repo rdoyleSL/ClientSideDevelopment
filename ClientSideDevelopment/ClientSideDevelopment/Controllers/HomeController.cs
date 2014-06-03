@@ -9,7 +9,6 @@
 
 namespace ClientSideDevelopment.Controllers
 {
-    using System.Linq;
     using System.Web.Mvc;
 
     using ClientSideDevelopment.Services.Abstract;
@@ -47,21 +46,10 @@ namespace ClientSideDevelopment.Controllers
         /// <returns>The <see cref="ActionResult"/>.</returns>
         public ActionResult Index()
         {
-            var movies = this.movieService.GetAllMovies().ToList();
-
-            var model = new IndexViewModel { Movies = movies };
-
-            return this.View(model);
-        }
-
-        /// <summary>
-        /// Adds the new movie.
-        /// </summary>
-        /// <returns>The <see cref="ActionResult"/>.</returns>
-        public ActionResult AddNewMovie()
-        {
+            var movies = this.movieService.GetAllMovies();
             var directors = this.directorService.GetAllDirectors();
-            var model = new AddNewMovieViewModel { Directors = directors };
+
+            var model = new IndexViewModel { Movies = movies, Directors = directors };
 
             return this.View(model);
         }
@@ -76,13 +64,11 @@ namespace ClientSideDevelopment.Controllers
         /// The <see cref="ActionResult" />.
         /// </returns>
         [HttpPost]
-        public ActionResult AddNewMovie(string movieTitle, int releaseYear, int directorId)
+        public JsonResult AddNewMovie(string movieTitle, int releaseYear, int directorId)
         {
             this.movieService.AddNewMovie(movieTitle, releaseYear, directorId);
-            var directors = this.directorService.GetAllDirectors();
-            var model = new AddNewMovieViewModel { Directors = directors };
 
-            return this.View(model);
+            return new JsonResult();
         }
     }
 }

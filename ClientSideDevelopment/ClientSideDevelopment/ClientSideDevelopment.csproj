@@ -148,7 +148,6 @@
     <Compile Include="Services\Abstract\IMovieService.cs" />
     <Compile Include="Services\Concrete\DirectorService.cs" />
     <Compile Include="Services\Concrete\MovieService.cs" />
-    <Compile Include="ViewModels\Home\AddNewMovieViewModel.cs" />
     <Compile Include="ViewModels\Home\IndexViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -180,7 +179,6 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Home\AddNewMovie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
