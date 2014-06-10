@@ -5,7 +5,7 @@
 
 <h2>Index</h2>
 
-<table>
+<table id="movie-table">
     <thead>
         <tr>
             <th>Title</th>
@@ -61,13 +61,21 @@
             var data = {
                 movieTitle: $('#movieTitle').val(),
                 releaseYear: $('#releaseYear').val(),
-                directorId: $('#directorId').val()
+                directorId: $('#directorId').val()                
             };
 
             $.ajax({
-                url: 'AddNewMovie',
-                type: 'POST',
-                data: data
+                url: "/Home/AddNewMovie",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+                dataType: "json",
+                success: function (response) {
+                    if (response.success === true) {
+                        var directorName = "fred";
+                        $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + directorName + "</td></tr>");                        
+                    }
+                }
             });
         }
     </script>

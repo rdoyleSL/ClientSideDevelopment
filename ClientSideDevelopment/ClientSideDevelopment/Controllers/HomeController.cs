@@ -67,8 +67,7 @@ namespace ClientSideDevelopment.Controllers
         public JsonResult AddNewMovie(string movieTitle, int releaseYear, int directorId)
         {
             this.movieService.AddNewMovie(movieTitle, releaseYear, directorId);
-
-            return new JsonResult();
+            return this.Json(new { success = true });
         }
     }
 }
