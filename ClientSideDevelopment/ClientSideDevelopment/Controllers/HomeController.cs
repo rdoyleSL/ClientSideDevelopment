@@ -49,14 +49,14 @@ namespace ClientSideDevelopment.Controllers
         /// </summary>
         /// <param name="movieTitle">The movie title.</param>
         /// <param name="releaseYear">The release year.</param>
-        /// <param name="directorId">The director identifier.</param>
+        /// <param name="rating">The rating.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
         [HttpPost]
-        public JsonResult AddNewMovie(string movieTitle, int releaseYear, int directorId)
+        public JsonResult AddNewMovie(string movieTitle, int releaseYear, int rating)
         {
-            this.movieService.AddNewMovie(movieTitle, releaseYear, directorId);
+            this.movieService.AddNewMovie(movieTitle, releaseYear, rating);
             return this.Json(new { success = true });
         }
     }

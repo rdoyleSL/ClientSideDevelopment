@@ -81,7 +81,7 @@
                 var data = {
                     movieTitle: $('#movieTitle').val(),
                     releaseYear: $('#releaseYear').val(),
-                    directorId: $('#directorId').val()
+                    rating: $('#rating').val()
                 };
 
                 $.ajax({
@@ -90,19 +90,23 @@
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     dataType: "json",
-                    success: function (response) {
+                    success: function(response) {
                         if (response.success === true) {
-                            var directorName = $("#directorId option:selected").text();
-                            $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + directorName + "</td></tr>");
+                            $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + data.rating + "</td><td><a href='#' class='details' data-title=" + data.movieTitle + "><i class='fi-magnifying-glass' title='Related titles...'></i></a></td></tr>");
                             $('#movieTitle').val("");
                             $('#releaseYear').val("");
-                            $('#directorId').val($("#directorId option:first").val());
+                            $('#rating').val($("#rating option:first").val());
                         }
                     }
                 });
 
                 event.preventDefault();
             });
-        });        
+
+            $("a.details").on("click", function () {
+                var title = $(this).data("title");
+
+            });
+        });
     </script>
 }
