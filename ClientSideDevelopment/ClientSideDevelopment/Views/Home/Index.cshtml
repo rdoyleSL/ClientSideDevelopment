@@ -11,27 +11,35 @@
 
 <div class="row">
     <div class="large-3 columns">
-        <div id="addNewMovie">
-            <form>
-                <label for="movieTitle">
-                    Title:
-                    <input type="text" id="movieTitle" name="movieTitle" />
-                </label>
-                <label for="releaseYear">
-                    Release Year:
-                    <input type="text" id="releaseYear" name="releaseYear" />
-                </label>
-                <label for="directorId">
-                    Director:
-                    <select id="directorId" name="directorId">
-                        @foreach (var director in Model.Directors)
-                        {
-                            <option value="@director.DirectorId">@director.FirstName @director.Surname</option>
-                        }
-                    </select>
-                </label>
-            </form>
-            <button onclick="addNewMovie()">Add New Movie</button>
+        <div>
+            <form id="addNewMovie" data-abide="ajax">
+                <div>
+                    <label>
+                        Title: <small>required</small>
+                        <input type="text" id="movieTitle" name="movieTitle" required />
+                    </label>
+                    <small class="error" data-error-message>Movie title is required.</small>
+                </div>
+                <div>
+                    <label>
+                        Release Year: <small>required</small>
+                        <input type="text" id="releaseYear" name="releaseYear" required pattern="\d{4}" />
+                    </label>
+                    <small class="error" data-error-message>Release year is required (YYYY).</small>
+                </div>
+                <div>
+                    <label>
+                        Director:
+                        <select id="directorId" name="directorId">
+                            @foreach (var director in Model.Directors)
+                            {
+                                <option value="@director.DirectorId">@director.FirstName @director.Surname</option>
+                            }
+                        </select>
+                    </label>
+                </div>
+                <button type="submit">Add new movie</button>
+            </form>            
         </div>
     </div>
     <div class="large-9 columns">
@@ -69,26 +77,33 @@
 @section scripts
 {
     <script type="text/javascript">
-        function addNewMovie() {
-            var data = {
-                movieTitle: $('#movieTitle').val(),
-                releaseYear: $('#releaseYear').val(),
-                directorId: $('#directorId').val()                
-            };
+        $(function() {
+            $("#addNewMovie").on("valid", function(event) {
+                var data = {
+                    movieTitle: $('#movieTitle').val(),
+                    releaseYear: $('#releaseYear').val(),
+                    directorId: $('#directorId').val()
+                };
 
-            $.ajax({
-                url: "/Home/AddNewMovie",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(data),
-                dataType: "json",
-                success: function (response) {
-                    if (response.success === true) {
-                        var directorName = "fred";
-                        $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + directorName + "</td></tr>");                        
+                $.ajax({
+                    url: "/Home/AddNewMovie",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(data),
+                    dataType: "json",
+                    success: function (response) {
+                        if (response.success === true) {
+                            var directorName = $("#directorId option:selected").text();
+                            $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + directorName + "</td></tr>");
+                            $('#movieTitle').val("");
+                            $('#releaseYear').val("");
+                            $('#directorId').val($("#directorId option:first").val());
+                        }
                     }
-                }
+                });
+
+                event.preventDefault();
             });
-        }
+        });        
     </script>
 }
