@@ -1,12 +1,12 @@
 ﻿@model ClientSideDevelopment.ViewModels.Home.IndexViewModel
-@{   
+@{
     ViewBag.Title = "Index";
 }
 
 <div class="row">
     <div class="large-12 columns">
         <h1>Film Site <small>Managing your favourite films.</small></h1>
-    </div>    
+    </div>
 </div>
 
 <div class="row">
@@ -39,7 +39,7 @@
                     </label>
                 </div>
                 <button type="submit">Add new movie</button>
-            </form>            
+            </form>
         </div>
     </div>
     <div class="large-9 columns">
@@ -64,6 +64,11 @@
                 }
             </tbody>
         </table>
+        <div id="related-titles" class="reveal-modal" data-reveal>
+            <h2 id="source-title"></h2>
+            <p>Because you liked this film, you may also like...</p>
+            <a class="close-reveal-modal">&#215;</a>
+        </div>
     </div>
 </div>
 
@@ -76,8 +81,8 @@
 @section scripts
 {
     <script type="text/javascript">
-        $(function() {
-            $("#addNewMovie").on("valid", function(event) {
+        $(function () {
+            $("#addNewMovie").on("valid", function (event) {
                 var data = {
                     movieTitle: $('#movieTitle').val(),
                     releaseYear: $('#releaseYear').val(),
@@ -90,7 +95,7 @@
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     dataType: "json",
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success === true) {
                             $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + data.rating + "</td><td><a href='#' class='details' data-title=" + data.movieTitle + "><i class='fi-magnifying-glass' title='Related titles...'></i></a></td></tr>");
                             $('#movieTitle').val("");
@@ -104,9 +109,14 @@
             });
 
             $("a.details").on("click", function () {
-                var title = $(this).data("title");
-
+                $("#source-title").text($(this).data("title"));
+                $('#related-titles').foundation('reveal', 'open');
             });
+
+            $(document).on('opened', '[data-reveal]', function () {
+                var title = $("#source-title").text();
+            });
+
         });
     </script>
 }
