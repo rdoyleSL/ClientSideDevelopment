@@ -49,6 +49,7 @@
                     <th>Title</th>
                     <th>Release Year</th>
                     <th>Rating</th>
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -58,6 +59,7 @@
                         <td>@movie.Title</td>
                         <td>@movie.ReleaseYear</td>
                         <td>@movie.Rating</td>
+                        <td><a href="#" class="details" data-title="@movie.Title"><i class="fi-magnifying-glass" title="Related titles..."></i></a></td>
                     </tr>
                 }
             </tbody>

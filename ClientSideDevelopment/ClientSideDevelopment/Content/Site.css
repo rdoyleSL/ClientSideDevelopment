@@ -5812,3 +5812,7 @@ th.hide-for-touch {
 #movie-table {
   width: 100%; }
 
+.details {
+  font-size: 18px;
+  color: #007095; }
+
