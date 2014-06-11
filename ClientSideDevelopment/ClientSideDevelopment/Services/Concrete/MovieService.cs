@@ -26,19 +26,12 @@ namespace ClientSideDevelopment.Services.Concrete
         private readonly IMovieRepository movieRepository;
 
         /// <summary>
-        /// The director service.
-        /// </summary>
-        private readonly IDirectorService directorService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="MovieService" /> class.
         /// </summary>
         /// <param name="movieRepository">The movie repository.</param>
-        /// <param name="directorService">The director service.</param>
-        public MovieService(IMovieRepository movieRepository, IDirectorService directorService)
+        public MovieService(IMovieRepository movieRepository)
         {
-            this.movieRepository = movieRepository;
-            this.directorService = directorService;
+            this.movieRepository = movieRepository;            
         }
 
         /// <summary>
@@ -55,13 +48,13 @@ namespace ClientSideDevelopment.Services.Concrete
         /// </summary>
         /// <param name="title">The movie title.</param>
         /// <param name="releaseYear">The release year.</param>
-        /// <param name="directorId">The director identifier.</param>
-        /// <returns> The movie that has been added.</returns>
-        public Movie AddNewMovie(string title, int releaseYear, int directorId)
-        {
-            var director = this.directorService.GetDirector(directorId);
-            var movie = new Movie { Title = title, ReleaseYear = releaseYear, Director = director };
-
+        /// <param name="rating">The rating.</param>
+        /// <returns>
+        /// The movie that has been added.
+        /// </returns>
+        public Movie AddNewMovie(string title, int releaseYear, int rating)
+        {            
+            var movie = new Movie { Title = title, ReleaseYear = releaseYear, Rating = rating };
             return this.movieRepository.AddNewMovie(movie);
         }
     }

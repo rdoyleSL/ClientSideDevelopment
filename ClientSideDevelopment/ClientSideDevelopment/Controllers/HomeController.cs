@@ -25,19 +25,12 @@ namespace ClientSideDevelopment.Controllers
         private readonly IMovieService movieService;
 
         /// <summary>
-        /// The director service.
-        /// </summary>
-        private readonly IDirectorService directorService;
-
-        /// <summary>
         /// Initializes a new instance of the <see cref="HomeController" /> class.
         /// </summary>
         /// <param name="movieService">The movie Service.</param>
-        /// <param name="directorService">The director Service.</param>
-        public HomeController(IMovieService movieService, IDirectorService directorService)
+        public HomeController(IMovieService movieService)
         {
             this.movieService = movieService;
-            this.directorService = directorService;
         }
 
         /// <summary>
@@ -46,11 +39,8 @@ namespace ClientSideDevelopment.Controllers
         /// <returns>The <see cref="ActionResult"/>.</returns>
         public ActionResult Index()
         {
-            var movies = this.movieService.GetAllMovies();
-            var directors = this.directorService.GetAllDirectors();
-
-            var model = new IndexViewModel { Movies = movies, Directors = directors };
-
+            var movies = this.movieService.GetAllMovies();            
+            var model = new IndexViewModel { Movies = movies };
             return this.View(model);
         }
 

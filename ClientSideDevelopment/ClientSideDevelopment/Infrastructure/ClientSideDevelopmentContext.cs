@@ -7,9 +7,11 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace ClientSideDevelopment.Models
+namespace ClientSideDevelopment.Infrastructure
 {
     using System.Data.Entity;
+
+    using ClientSideDevelopment.Models;
 
     /// <summary>
     /// The client side development context.
@@ -22,11 +24,6 @@ namespace ClientSideDevelopment.Models
         public ClientSideDevelopmentContext() : base("ClientSideDevelopmentContext")
         {
         }
-
-        /// <summary>
-        /// Gets or sets the directors.
-        /// </summary>
-        public IDbSet<Director> Directors { get; set; }
 
         /// <summary>
         /// Gets or sets the movies.

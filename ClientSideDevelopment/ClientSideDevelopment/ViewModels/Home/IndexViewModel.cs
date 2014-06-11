@@ -21,11 +21,6 @@ namespace ClientSideDevelopment.ViewModels.Home
         /// <summary>
         /// Gets or sets the movies.
         /// </summary>
-        public IEnumerable<Movie> Movies { get; set; }
-
-        /// <summary>
-        /// Gets or sets the directors.
-        /// </summary>
-        public IEnumerable<Director> Directors { get; set; } 
+        public IEnumerable<Movie> Movies { get; set; }        
     }
 }

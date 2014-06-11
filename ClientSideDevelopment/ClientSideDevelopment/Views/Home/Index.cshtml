@@ -29,11 +29,11 @@
                 </div>
                 <div>
                     <label>
-                        Director:
-                        <select id="directorId" name="directorId">
-                            @foreach (var director in Model.Directors)
+                        Rating:
+                        <select id="rating" name="rating">
+                            @for (int i = 1; i <= 10; i++)
                             {
-                                <option value="@director.DirectorId">@director.FirstName @director.Surname</option>
+                                <option value="@i">@i</option>
                             }
                         </select>
                     </label>
@@ -48,7 +48,7 @@
                 <tr>
                     <th>Title</th>
                     <th>Release Year</th>
-                    <th>Director</th>
+                    <th>Rating</th>
                 </tr>
             </thead>
             <tbody>
@@ -57,10 +57,7 @@
                     <tr>
                         <td>@movie.Title</td>
                         <td>@movie.ReleaseYear</td>
-                        @if (movie.Director != null)
-                        {
-                            <td>@movie.Director.FirstName @movie.Director.Surname</td>
-                        }
+                        <td>@movie.Rating</td>
                     </tr>
                 }
             </tbody>

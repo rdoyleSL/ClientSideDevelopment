@@ -59,8 +59,6 @@ namespace ClientSideDevelopment.Infrastructure
         {
             this.ninjectKernel.Bind<IMovieService>().To<MovieService>();
             this.ninjectKernel.Bind<IMovieRepository>().To<MovieRepository>();
-            this.ninjectKernel.Bind<IDirectorService>().To<DirectorService>();
-            this.ninjectKernel.Bind<IDirectorRepository>().To<DirectorRepository>();
         }
     }
 }

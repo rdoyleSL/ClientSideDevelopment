@@ -32,6 +32,6 @@ namespace ClientSideDevelopment.Models
         /// <summary>
         /// Gets or sets the director.
         /// </summary>
-        public Director Director { get; set; }
+        public int Rating { get; set; }
     }
 }

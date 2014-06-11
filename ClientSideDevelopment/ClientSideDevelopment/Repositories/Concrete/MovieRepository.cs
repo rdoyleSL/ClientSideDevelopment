@@ -10,9 +10,9 @@
 namespace ClientSideDevelopment.Repositories.Concrete
 {
     using System.Collections.Generic;
-    using System.Data.Entity;
     using System.Linq;
 
+    using ClientSideDevelopment.Infrastructure;
     using ClientSideDevelopment.Models;
     using ClientSideDevelopment.Repositories.Abstract;
 
@@ -29,7 +29,7 @@ namespace ClientSideDevelopment.Repositories.Concrete
         {
             using (var context = new ClientSideDevelopmentContext())
             {
-                return context.Movies.Include(m => m.Director).ToList();
+                return context.Movies.ToList();
             }
         }
 
