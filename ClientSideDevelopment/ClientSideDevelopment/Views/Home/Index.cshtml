@@ -66,6 +66,7 @@
         </table>
         <div id="related-titles" class="reveal-modal" data-reveal>
             <h2 id="source-title"></h2>
+            <p id="critics-concensus"></p>
             <p>Because you liked this film, you may also like...</p>
             <a class="close-reveal-modal">&#215;</a>
         </div>
@@ -115,8 +116,27 @@
 
             $(document).on('opened', '[data-reveal]', function () {
                 var title = $("#source-title").text();
-            });
+                $.ajax({
+                    url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=jvasufnuxk3mhhghbmcq9a2h&q=" + encodeURIComponent(title) + "&page_limit=1&callback=?",
+                    type: "GET",
+                    dataType: "jsonp",
+                    success: function(response) {
+                        if (response === null) {
+                            return;
+                        }
 
+                        if (response.movies === null || response.movies.length === 0) {
+                            return;
+                        }
+
+                        $("#critics-concensus").text(response.movies[0].critics_consensus);
+                        var movieId = response.movies[0].id;
+                    },
+                    error: function(xhr, status, error) {
+                        alert(status);
+                    }
+                });
+            });
         });
     </script>
 }
