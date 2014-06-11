@@ -68,6 +68,19 @@
             <h2 id="source-title"></h2>
             <p id="critics-concensus"></p>
             <p>Because you liked this film, you may also like...</p>
+            <table id="related-titles-table">
+                <thead>
+                    <tr>
+                        <td>Film</td>
+                        <td>Title</td>
+                        <td>Year</td>
+                        <td>Audience Score</td>
+                        <td>Critics Score</td>
+                    </tr>
+                </thead>
+                <tbody>                    
+                </tbody>
+            </table>
             <a class="close-reveal-modal">&#215;</a>
         </div>
     </div>
@@ -82,8 +95,8 @@
 @section scripts
 {
     <script type="text/javascript">
-        $(function () {
-            $("#addNewMovie").on("valid", function (event) {
+        $(function() {
+            $("#addNewMovie").on("valid", function(event) {
                 var data = {
                     movieTitle: $('#movieTitle').val(),
                     releaseYear: $('#releaseYear').val(),
@@ -96,26 +109,33 @@
                     contentType: "application/json",
                     data: JSON.stringify(data),
                     dataType: "json",
-                    success: function (response) {
+                    success: function(response) {
                         if (response.success === true) {
                             $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + data.rating + "</td><td><a href='#' class='details' data-title=" + data.movieTitle + "><i class='fi-magnifying-glass' title='Related titles...'></i></a></td></tr>");
                             $('#movieTitle').val("");
                             $('#releaseYear').val("");
                             $('#rating').val($("#rating option:first").val());
                         }
+                    },
+                    error: function() {
+                        alert('There was an error adding the movie.');
                     }
                 });
 
                 event.preventDefault();
             });
 
-            $("a.details").on("click", function () {
+            $("#movie-table").on("click", "a", function () {
                 $("#source-title").text($(this).data("title"));
                 $('#related-titles').foundation('reveal', 'open');
             });
-
-            $(document).on('opened', '[data-reveal]', function () {
+            
+            // Get movie details
+            $(document).on('opened', '[data-reveal]', function() {
                 var title = $("#source-title").text();
+
+                $("#critics-concensus").text("");
+                $("#related-titles-table tbody").empty();
                 $.ajax({
                     url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=jvasufnuxk3mhhghbmcq9a2h&q=" + encodeURIComponent(title) + "&page_limit=1&callback=?",
                     type: "GET",
@@ -131,6 +151,31 @@
 
                         $("#critics-concensus").text(response.movies[0].critics_consensus);
                         var movieId = response.movies[0].id;
+
+                        // Get related titles:
+                        $.ajax({
+                            url: "http://api.rottentomatoes.com/api/public/v1.0/movies/" + movieId + "/similar.json?apikey=jvasufnuxk3mhhghbmcq9a2h&callback=?",
+                            type: "GET",
+                            dataType: "jsonp",
+                            success: function(related) {
+                                if (related === null) {
+                                    return;
+                                }
+
+                                if (related.movies === null || related.movies.length === 0) {
+                                    return;
+                                }
+
+                                for (var i = 0; i < related.movies.length; i++) {
+                                    var movie = related.movies[i];
+                                    $("#related-titles-table").append("<tr><td><img class=\"th radius\" src=\"" + movie.posters.thumbnail + "\"></img></td><td>" + movie.title + "</td><td>" + movie.year + "</td><td>" + movie.ratings.audience_score + "%</td><td>" + movie.ratings.critics_score + "%</td></tr>");
+                                }
+                            },
+                            error: function(xhr, status, error) {
+                                alert(status);
+                            }
+                        });
+
                     },
                     error: function(xhr, status, error) {
                         alert(status);
