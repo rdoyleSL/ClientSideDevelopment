@@ -24,7 +24,8 @@ namespace ClientSideDevelopment
                         "~/Scripts/foundation/foundation.reveal.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/knockout").Include(
-                        "~/Scripts/knockout-{version}.js"));
+                        "~/Scripts/knockout-{version}.js",
+                        "~/Scripts/knockout-postbox.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/app").IncludeDirectory(
                         "~/Scripts/app", "*.js", searchSubdirectories: true));

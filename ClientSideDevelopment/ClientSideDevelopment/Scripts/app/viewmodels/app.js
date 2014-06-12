@@ -1,9 +1,9 @@
-﻿(function ($, filmSite) {
+﻿(function ($, postbox, filmSite) {
     "use strict";
 
     filmSite.AppViewModel = function() {
-        var favouritesViewModel = ko.observable(new filmSite.FavouritesViewModel()),
-            addMovieViewModel = ko.observable(new filmSite.AddMovieViewModel()),
+        var favouritesViewModel = ko.observable(new filmSite.FavouritesViewModel(postbox)),
+            addMovieViewModel = ko.observable(new filmSite.AddMovieViewModel(postbox)),
             selectedMovie = ko.observable();
 
         return {
@@ -13,4 +13,4 @@
         }
     };
 
-})($, window.filmSite = window.filmSite || {});
+})($, ko.postbox, window.filmSite = window.filmSite || {});

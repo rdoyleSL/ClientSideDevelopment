@@ -1,9 +1,7 @@
-﻿(function ($, filmSite) {
+﻿(function ($, postbox, filmSite) {
     "use strict";
 
-    filmSite.AddMovieViewModel = function () {
-
-        var movieAdded = function() {};
+    filmSite.AddMovieViewModel = function () {        
 
         function addMovie() {
 
@@ -21,7 +19,7 @@
                 dataType: "json",
                 success: function (response) {
                     if (response.success === true) {
-                        movieAdded(new filmSite.MovieViewModel(movie.title, movie.releaseYear, movie.rating));
+                        postbox.publish("movieAdded", movie);
                     }
                 },
                 error: function (xhr, status, error) {
@@ -31,9 +29,8 @@
         }
 
         return {
-            addMovie: addMovie,
-            movieAdded: movieAdded
+            addMovie: addMovie            
         }
     }
 
-})($, window.filmSite = window.filmSite || {});
+})($, ko.postbox, window.filmSite = window.filmSite || {});

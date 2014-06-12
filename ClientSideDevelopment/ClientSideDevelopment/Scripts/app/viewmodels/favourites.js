@@ -1,4 +1,4 @@
-﻿(function ($, filmSite) {
+﻿(function ($, postbox, filmSite) {
     "use strict";
 
     filmSite.FavouritesViewModel = function () {
@@ -19,16 +19,15 @@
             });
         }
 
-        function addMovie(movie) {
-            movies.push(ko.observable(movie));
-        }
+        postbox.subscribe("movieAdded", function(movie) {
+            movies.push(ko.observable(new filmSite.MovieViewModel(movie.title, movie.releaseYear, movie.rating)));
+        });
 
         loadMovies();
 
         return {
-            movies: movies,
-            addMovie: addMovie
+            movies: movies            
         }
     };
 
-})($, window.filmSite = window.filmSite || {});
+})($, ko.postbox, window.filmSite = window.filmSite || {});
