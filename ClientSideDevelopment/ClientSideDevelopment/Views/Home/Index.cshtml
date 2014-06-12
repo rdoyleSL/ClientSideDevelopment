@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="large-3 columns">
-        <div>
+        <div data-bind="with: addMovieViewModel">
             <form id="addNewMovie" data-abide="ajax" data-bind="submit: addMovie">
                 <div>
                     <label>
@@ -43,13 +43,13 @@
         </div>
     </div>
     <div class="large-9 columns">
-        <table id="movie-table">
+        <table id="movie-table" data-bind="with: favouritesViewModel">
             <thead>
                 <tr>
                     <th>Title</th>
                     <th>Release Year</th>
                     <th>Rating</th>
-                    @*<th></th>*@
+                    <th></th>
                 </tr>
             </thead>
             <tbody data-bind="foreach: movies">
@@ -57,13 +57,13 @@
                     <td data-bind="text: title"></td>
                     <td data-bind="text: year"></td>
                     <td data-bind="text: rating"></td>
-                   @* <td><a href="#" class="details" data-title="@movie.Title"><i class="fi-magnifying-glass" title="Related titles..."></i></a></td>*@
+                    <td><a href="#" data-bind="click: viewRelatedTitles"><i class="fi-magnifying-glass" title="Related titles..."></i></a></td>
                 </tr>
             </tbody>
         </table>
-        <div id="related-titles" class="reveal-modal" data-reveal>
-            <h2 id="source-title"></h2>
-            <p id="critics-concensus"></p>
+        <div id="related-titles" class="reveal-modal" data-reveal data-bind="with: selectedMovie">
+            <h2 id="source-title" data-bind="text: title"></h2>
+            <p id="critics-concensus" data-bind="text: criticsConcensus"></p>
             <p>Because you liked this film, you may also like...</p>
             <table id="related-titles-table">
                 <thead>
@@ -89,12 +89,10 @@
 </footer>
 
 @section scripts
-{
-    <script type="text/javascript" src="~/Scripts/app/films-viewmodel.js"></script>
-    <script type="text/javascript" src="~/Scripts/app/movie-viewmodel.js"></script>
+{    
     <script type="text/javascript">
         $(function () {
-            ko.applyBindings(new filmSite.FilmSiteViewModel());
+            ko.applyBindings(new filmSite.AppViewModel());
         });
     </script>
 }
