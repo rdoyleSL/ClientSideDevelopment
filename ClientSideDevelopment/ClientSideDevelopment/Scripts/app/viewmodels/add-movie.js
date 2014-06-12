@@ -4,7 +4,7 @@
     filmSite.AddMovieViewModel = function () {        
 
         function addMovie() {
-
+            
             var movie = {
                 title: $("#movieTitle").val(),
                 releaseYear: $("#releaseYear").val(),
