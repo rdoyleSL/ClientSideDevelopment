@@ -19,6 +19,10 @@
             });
         }
 
+        function viewRelatedTitles(movie) {
+            postbox.publish("movieSelected", movie.title());
+        }
+
         postbox.subscribe("movieAdded", function(movie) {
             movies.push(ko.observable(new filmSite.MovieViewModel(movie.title, movie.releaseYear, movie.rating)));
         });
@@ -26,7 +30,8 @@
         loadMovies();
 
         return {
-            movies: movies            
+            movies: movies,
+            viewRelatedTitles: viewRelatedTitles
         }
     };
 

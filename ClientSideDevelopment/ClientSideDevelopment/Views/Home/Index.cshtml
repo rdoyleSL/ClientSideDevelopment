@@ -57,13 +57,17 @@
                     <td data-bind="text: title"></td>
                     <td data-bind="text: year"></td>
                     <td data-bind="text: rating"></td>
-                    <td><a href="#" data-bind="click: viewRelatedTitles"><i class="fi-magnifying-glass" title="Related titles..."></i></a></td>
+                    <td>
+                        <a href="#" data-bind="click: $parent.viewRelatedTitles">
+                            <i class="fi-magnifying-glass" title="Related titles..."></i>
+                        </a>
+                    </td>
                 </tr>
             </tbody>
         </table>
-        <div id="related-titles" class="reveal-modal" data-reveal data-bind="with: selectedMovie">
+        <div id="related-titles" class="reveal-modal" data-reveal data-bind="with: movieDetailsViewModel">
             <h2 id="source-title" data-bind="text: title"></h2>
-            <p id="critics-concensus" data-bind="text: criticsConcensus"></p>
+            <p id="critics-concensus"></p>
             <p>Because you liked this film, you may also like...</p>
             <table id="related-titles-table">
                 <thead>
@@ -89,7 +93,7 @@
 </footer>
 
 @section scripts
-{    
+{
     <script type="text/javascript">
         $(function () {
             ko.applyBindings(new filmSite.AppViewModel());
