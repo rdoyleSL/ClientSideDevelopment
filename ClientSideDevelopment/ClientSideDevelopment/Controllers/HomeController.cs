@@ -45,18 +45,28 @@ namespace ClientSideDevelopment.Controllers
         }
 
         /// <summary>
+        /// Gets the movies.
+        /// </summary>
+        /// <returns>The collection of movies</returns>
+        public JsonResult GetMovies()
+        {
+            var movies = this.movieService.GetAllMovies();
+            return this.Json(movies, JsonRequestBehavior.AllowGet);
+        }
+
+        /// <summary>
         /// Adds the new movie.
         /// </summary>
-        /// <param name="movieTitle">The movie title.</param>
+        /// <param name="title">The title.</param>
         /// <param name="releaseYear">The release year.</param>
         /// <param name="rating">The rating.</param>
         /// <returns>
         /// The <see cref="ActionResult" />.
         /// </returns>
         [HttpPost]
-        public JsonResult AddNewMovie(string movieTitle, int releaseYear, int rating)
+        public JsonResult AddNewMovie(string title, int releaseYear, int rating)
         {
-            this.movieService.AddNewMovie(movieTitle, releaseYear, rating);
+            this.movieService.AddNewMovie(title, releaseYear, rating);
             return this.Json(new { success = true });
         }
     }

@@ -1,4 +1,4 @@
-﻿(function (filmSite) {
+﻿(function ($, filmSite) {
     "use strict";
 
     filmSite.FilmSiteViewModel = function () {
@@ -6,12 +6,42 @@
 
         function loadMovies() {
             movies.removeAll();
-            movies.push(new filmSite.MovieViewModel('test', 1988, 8));
-            movies.push(new filmSite.MovieViewModel('test2', 1990, 9));
-        }        
+            $.ajax({
+                url: "/Home/GetMovies",
+                type: "GET",
+                dataType: "json",
+                success: function (response) {
+                    for (var i = 0; i < response.length; i++) {
+                        var movie = response[i];
+                        movies.push(ko.observable(new filmSite.MovieViewModel(movie.Title, movie.ReleaseYear, movie.Rating)));
+                    }
+                }
+            });
+        }
 
-        function addMovie(title, year, rating) {
-            
+        function addMovie() {
+
+            var movie = {
+                title: $("#movieTitle").val(),
+                releaseYear: $("#releaseYear").val(),
+                rating: $("#rating option:selected").val()
+            };            
+
+            $.ajax({
+                url: "/Home/AddNewMovie",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(movie),
+                dataType: "json",
+                success: function (response) {
+                    if (response.success === true) {
+                        movies.push(ko.observable(new filmSite.MovieViewModel(movie.title, movie.releaseYear, movie.rating)));
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alert('There was an error adding the movie.');
+                }
+            });            
         }
 
         loadMovies();
@@ -22,4 +52,4 @@
         }
     };
 
-})(window.filmSite = window.filmSite || {});
+})($, window.filmSite = window.filmSite || {});
