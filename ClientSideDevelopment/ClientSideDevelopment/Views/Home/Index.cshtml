@@ -69,7 +69,7 @@
             <h2 data-bind="text: movie().title"></h2>
             <p data-bind="text: movie().criticsConsensus"></p>
             <p>Because you liked this film, you may also like....</p>
-            <table id="related-titles-table">
+            <table id="related-titles-table" data-bind="with: movie">
                 <thead>
                     <tr>
                         <td>Film</td>
@@ -79,7 +79,15 @@
                         <td>Critics Score</td>
                     </tr>
                 </thead>
-                <tbody></tbody>
+                <tbody data-bind="foreach: relatedTitles">
+                    <tr>
+                        <td><img class="th radius" data-bind="attr: { src: poster, alt: title }" alt="" /></td>
+                        <td data-bind="text: title"></td>
+                        <td data-bind="text: year"></td>
+                        <td data-bind="text: audienceScore() + '%'"></td>
+                        <td data-bind="text: criticsScore() + '%'"></td>
+                    </tr>
+                </tbody>
             </table>
             <a class="close-reveal-modal">&#215;</a>
         </div>
