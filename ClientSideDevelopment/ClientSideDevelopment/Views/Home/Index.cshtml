@@ -49,19 +49,16 @@
                     <th>Title</th>
                     <th>Release Year</th>
                     <th>Rating</th>
-                    <th></th>
+                    @*<th></th>*@
                 </tr>
             </thead>
-            <tbody>
-                @foreach (var movie in Model.Movies)
-                {
-                    <tr>
-                        <td>@movie.Title</td>
-                        <td>@movie.ReleaseYear</td>
-                        <td>@movie.Rating</td>
-                        <td><a href="#" class="details" data-title="@movie.Title"><i class="fi-magnifying-glass" title="Related titles..."></i></a></td>
-                    </tr>
-                }
+            <tbody data-bind="foreach: movies">
+                <tr>
+                    <td data-bind="text: title"></td>
+                    <td data-bind="text: year"></td>
+                    <td data-bind="text: rating"></td>
+                   @* <td><a href="#" class="details" data-title="@movie.Title"><i class="fi-magnifying-glass" title="Related titles..."></i></a></td>*@
+                </tr>
             </tbody>
         </table>
         <div id="related-titles" class="reveal-modal" data-reveal>
@@ -78,8 +75,7 @@
                         <td>Critics Score</td>
                     </tr>
                 </thead>
-                <tbody>                    
-                </tbody>
+                <tbody></tbody>
             </table>
             <a class="close-reveal-modal">&#215;</a>
         </div>
@@ -94,94 +90,11 @@
 
 @section scripts
 {
+    <script type="text/javascript" src="~/Scripts/app/films-viewmodel.js"></script>
+    <script type="text/javascript" src="~/Scripts/app/movie-viewmodel.js"></script>
     <script type="text/javascript">
-        $(function() {
-            $("#addNewMovie").on("valid", function(event) {
-                var data = {
-                    movieTitle: $('#movieTitle').val(),
-                    releaseYear: $('#releaseYear').val(),
-                    rating: $('#rating').val()
-                };
-
-                $.ajax({
-                    url: "/Home/AddNewMovie",
-                    type: "POST",
-                    contentType: "application/json",
-                    data: JSON.stringify(data),
-                    dataType: "json",
-                    success: function(response) {
-                        if (response.success === true) {
-                            $("#movie-table").append("<tr><td>" + data.movieTitle + "</td><td>" + data.releaseYear + "</td><td>" + data.rating + "</td><td><a href='#' class='details' data-title=" + data.movieTitle + "><i class='fi-magnifying-glass' title='Related titles...'></i></a></td></tr>");
-                            $('#movieTitle').val("");
-                            $('#releaseYear').val("");
-                            $('#rating').val($("#rating option:first").val());
-                        }
-                    },
-                    error: function() {
-                        alert('There was an error adding the movie.');
-                    }
-                });
-
-                event.preventDefault();
-            });
-
-            $("#movie-table").on("click", "a", function () {
-                $("#source-title").text($(this).data("title"));
-                $('#related-titles').foundation('reveal', 'open');
-            });
-            
-            // Get movie details
-            $(document).on('opened', '[data-reveal]', function() {
-                var title = $("#source-title").text();
-
-                $("#critics-concensus").text("");
-                $("#related-titles-table tbody").empty();
-                $.ajax({
-                    url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=jvasufnuxk3mhhghbmcq9a2h&q=" + encodeURIComponent(title) + "&page_limit=1&callback=?",
-                    type: "GET",
-                    dataType: "jsonp",
-                    success: function(response) {
-                        if (response === null) {
-                            return;
-                        }
-
-                        if (response.movies === null || response.movies.length === 0) {
-                            return;
-                        }
-
-                        $("#critics-concensus").text(response.movies[0].critics_consensus);
-                        var movieId = response.movies[0].id;
-
-                        // Get related titles:
-                        $.ajax({
-                            url: "http://api.rottentomatoes.com/api/public/v1.0/movies/" + movieId + "/similar.json?apikey=jvasufnuxk3mhhghbmcq9a2h&callback=?",
-                            type: "GET",
-                            dataType: "jsonp",
-                            success: function(related) {
-                                if (related === null) {
-                                    return;
-                                }
-
-                                if (related.movies === null || related.movies.length === 0) {
-                                    return;
-                                }
-
-                                for (var i = 0; i < related.movies.length; i++) {
-                                    var movie = related.movies[i];
-                                    $("#related-titles-table").append("<tr><td><img class=\"th radius\" src=\"" + movie.posters.thumbnail + "\"></img></td><td>" + movie.title + "</td><td>" + movie.year + "</td><td>" + movie.ratings.audience_score + "%</td><td>" + movie.ratings.critics_score + "%</td></tr>");
-                                }
-                            },
-                            error: function(xhr, status, error) {
-                                alert(status);
-                            }
-                        });
-
-                    },
-                    error: function(xhr, status, error) {
-                        alert(status);
-                    }
-                });
-            });
+        $(function () {
+            ko.applyBindings(new filmSite.FilmSiteViewModel());
         });
     </script>
 }
