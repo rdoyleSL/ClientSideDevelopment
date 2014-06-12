@@ -13,7 +13,7 @@
                 success: function (response) {
                     for (var i = 0; i < response.length; i++) {
                         var movie = response[i];
-                        movies.push(ko.observable(new filmSite.MovieViewModel(movie.Title, movie.ReleaseYear, movie.Rating)));
+                        movies.push(ko.observable(new filmSite.MovieInfoViewModel(movie.Title, movie.ReleaseYear, movie.Rating)));
                     }
                 }
             });
@@ -24,7 +24,7 @@
         }
 
         postbox.subscribe("movieAdded", function(movie) {
-            movies.push(ko.observable(new filmSite.MovieViewModel(movie.title, movie.releaseYear, movie.rating)));
+            movies.push(ko.observable(new filmSite.MovieInfoViewModel(movie.title, movie.releaseYear, movie.rating)));
         });
 
         loadMovies();

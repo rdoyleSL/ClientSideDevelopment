@@ -65,10 +65,10 @@
                 </tr>
             </tbody>
         </table>
-        <div id="related-titles" class="reveal-modal" data-reveal data-bind="with: movieDetailsViewModel">
-            <h2 id="source-title" data-bind="text: title"></h2>
-            <p id="critics-concensus"></p>
-            <p>Because you liked this film, you may also like...</p>
+        <div id="related-titles" class="reveal-modal" data-bind="with: movieDetailsViewModel" data-reveal>
+            <h2 data-bind="text: movie().title"></h2>
+            <p data-bind="text: movie().criticsConsensus"></p>
+            <p>Because you liked this film, you may also like....</p>
             <table id="related-titles-table">
                 <thead>
                     <tr>

@@ -2,19 +2,33 @@
     "use strict";
 
     filmSite.MovieDetailViewModel = function () {
-        var title = ko.observable(),
-            releaseYear = ko.observable(),
-            rating = ko.observable();
+        var movie = ko.observable(new filmSite.MovieViewModel());
 
-        postbox.subscribe("movieSelected", function (movieTitle) {
-            title(movieTitle);
-            $('#related-titles').foundation('reveal', 'open');
+        postbox.subscribe("movieSelected", function (movieTitle) {            
+            loadMovieDetails(movieTitle);
         });
 
+        function loadMovieDetails(movieTitle) {            
+            $('#related-titles').foundation('reveal', 'open');
+
+            $.ajax({
+                url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=jvasufnuxk3mhhghbmcq9a2h&q=" + encodeURIComponent(movieTitle) + "&page_limit=1&callback=?",
+                type: "GET",
+                dataType: "jsonp",
+                success: function (response) {
+                    var movieId = response.movies[0].id;
+                    var criticsConsensus = response.movies[0].critics_consensus;
+                    
+                    movie(new filmSite.MovieViewModel(movieId, movieTitle, criticsConsensus));
+                },
+                error: function (xhr, status, error) {
+                    alert(status);
+                }
+            });
+        }
+
         return {
-            title: title,
-            releaseYear: releaseYear,
-            rating: rating
+            movie: movie
         }
     };
 

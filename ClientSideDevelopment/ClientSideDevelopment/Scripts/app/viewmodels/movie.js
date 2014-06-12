@@ -1,15 +1,15 @@
 ﻿(function (filmSite) {
     "use strict";
 
-    filmSite.MovieViewModel = (function (title, year, rating) {
+    filmSite.MovieViewModel = (function (id, title, criticsConsensus) {
+        id = ko.observable(id);
         title = ko.observable(title);
-        year = ko.observable(year);
-        rating = ko.observable(rating);
-
+        criticsConsensus = ko.observable(criticsConsensus);
+        
         return {
+            id: id,
             title: title,
-            year: year,
-            rating: rating            
+            criticsConsensus: criticsConsensus
         }
     });
 

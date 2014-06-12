@@ -495,8 +495,9 @@
     <Content Include="Scripts\app\viewmodels\add-movie.js" />
     <Content Include="Scripts\app\viewmodels\app.js" />
     <Content Include="Scripts\app\viewmodels\favourites.js" />
-    <Content Include="Scripts\app\viewmodels\movie.js" />
+    <Content Include="Scripts\app\viewmodels\movie-info.js" />
     <Content Include="Scripts\app\viewmodels\movie-detail.js" />
+    <Content Include="Scripts\app\viewmodels\movie.js" />
     <Content Include="Scripts\foundation\fastclick.js" />
     <Content Include="Scripts\foundation\foundation.abide.js" />
     <Content Include="Scripts\foundation\foundation.accordion.js" />
