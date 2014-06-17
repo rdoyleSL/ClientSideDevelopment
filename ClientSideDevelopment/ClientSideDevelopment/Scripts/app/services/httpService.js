@@ -15,12 +15,13 @@
             return object[propertyName] || defaultValue;
         }
 
-        var globalSuccessHandler = function (url, response) {
+        var globalSuccessHandler = function (url) {
             filmSite.loggingService.log("Ajax success (" + url + ")");
         }
 
-        var globalErrorHandler = function(xhr, status, errorThrown) {
-            filmSite.loggingService.error("Ajax error (" + URL + "): " + errorThrown);
+        var globalErrorHandler = function (url, xhr) {
+            var response = JSON.parse(xhr.responseText);
+            filmSite.loggingService.error("Ajax error (" + url + "): " + response.errorMessage);
         }
 
         var ajax = function (url, type, data, successCallback, errorCallback, options) {
