@@ -1,37 +1,15 @@
 ﻿(function (filmSite) {
     "use strict";
 
-    filmSite.favouriteMovieService = (function () {        
+    filmSite.rottenTomatoesService = (function () {
 
-        var getMovies = function(successCallback, errorCallback) {
+        var getMovieDetails = function (movieTitle, successCallback, errorCallback) {
             var success = successCallback || null;
             var error = errorCallback || null;
             $.ajax({
-                url: "/Home/GetMovies",
+                url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=jvasufnuxk3mhhghbmcq9a2h&q=" + encodeURIComponent(movieTitle) + "&page_limit=1&callback=?",
                 type: "GET",
-                dataType: "json",
-                success: function (response) {
-                    if (success !== null) {
-                        success(response);
-                    }
-                },
-                error: function(xhr, status, errorThrown) {
-                    if (error !== null) {
-                        error(xhr, status, errorThrown);
-                    }
-                }
-            });
-        };
-
-        var addMovie = function(movie, successCallback, errorCallback) {
-            var success = successCallback || null;
-            var error = errorCallback || null;
-            $.ajax({
-                url: "/Home/AddNewMovie",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(movie),
-                dataType: "json",
+                dataType: "jsonp",
                 success: function (response) {
                     if (success !== null) {
                         success(response);
@@ -43,11 +21,31 @@
                     }
                 }
             });
+        }        
+
+        var getRelatedMovies = function (movieId, successCallback, errorCallback) {
+            var success = successCallback || null;
+            var error = errorCallback || null;
+            $.ajax({
+                url: "http://api.rottentomatoes.com/api/public/v1.0/movies/" + movieId + "/similar.json?apikey=jvasufnuxk3mhhghbmcq9a2h&callback=?",
+                type: "GET",
+                dataType: "jsonp",
+                success: function (response) {
+                    if (success !== null) {
+                        success(response);
+                    }
+                },
+                error: function (xhr, status, errorThrown) {
+                    if (error != null) {
+                        error(xhr, status, errorThrown);
+                    }
+                }
+            });
         }
 
         return {
-            getMovies: getMovies,
-            addMovie: addMovie
+            getMovieDetails: getMovieDetails,
+            getRelatedMovies: getRelatedMovies
         }
     })();
 

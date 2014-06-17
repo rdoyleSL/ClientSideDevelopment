@@ -13,29 +13,30 @@
                 return;
             }
 
-            $.ajax({
-                url: "http://api.rottentomatoes.com/api/public/v1.0/movies/" + id() + "/similar.json?apikey=jvasufnuxk3mhhghbmcq9a2h&callback=?",
-                type: "GET",
-                dataType: "jsonp",
-                success: function (related) {
+            filmSite.rottenTomatoesService.getRelatedMovies(
+                id(),
+                function(response) {
                     relatedTitles.removeAll();
-                    for (var i = 0; i < related.movies.length; i++) {
-                        var movie = related.movies[i];
+
+                    if (response.movies.length === 0) {
+                        return;
+                    }
+
+                    for (var i = 0; i < response.movies.length; i++) {
+                        var movie = response.movies[i];
                         relatedTitles.push(new filmSite.RelatedMovieInfoViewModel(
                                 movie.posters.thumbnail,
                                 movie.title,
                                 movie.year,
                                 movie.ratings.audience_score,
                                 movie.ratings.critics_score
-                            ));
-
-                        //$("#related-titles-table").append("<tr><td><img class=\"th radius\" src=\"" + movie.posters.thumbnail + "\"></img></td><td>" + movie.title + "</td><td>" + movie.year + "</td><td>" + movie.ratings.audience_score + "%</td><td>" + movie.ratings.critics_score + "%</td></tr>");
+                        ));
                     }
                 },
-                error: function (xhr, status, error) {
-                    alert(status);
+                function() {
+                    alert("There was an error retrieving related movies.");
                 }
-            });
+            );
         }
 
         loadRelatedTitles();

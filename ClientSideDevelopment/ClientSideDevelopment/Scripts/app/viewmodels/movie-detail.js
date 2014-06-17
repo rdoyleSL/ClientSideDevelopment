@@ -10,25 +10,22 @@
 
         function loadMovieDetails(movieTitle) {            
             $('#related-titles').foundation('reveal', 'open');
-
-            $.ajax({
-                url: "http://api.rottentomatoes.com/api/public/v1.0/movies.json?apikey=jvasufnuxk3mhhghbmcq9a2h&q=" + encodeURIComponent(movieTitle) + "&page_limit=1&callback=?",
-                type: "GET",
-                dataType: "jsonp",
-                success: function (response) {
+            filmSite.rottenTomatoesService.getMovieDetails(
+                movieTitle,
+                function (response) {
                     if (response.movies.length === 0) {
                         return;
                     }
 
                     var movieId = response.movies[0].id;
                     var criticsConsensus = response.movies[0].critics_consensus;
-                    
+
                     movie(new filmSite.MovieViewModel(movieId, movieTitle, criticsConsensus));
                 },
-                error: function (xhr, status, error) {
-                    alert(status);
+                function() {
+                    alert('There was an error retrieving related movies.');
                 }
-            });
+            );
         }
 
         return {
