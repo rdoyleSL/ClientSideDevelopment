@@ -1,4 +1,4 @@
-﻿(function (postbox, filmSite) {
+﻿(function (filmSite) {
     "use strict";
 
     filmSite.httpService = (function () {
@@ -15,12 +15,12 @@
             return object[propertyName] || defaultValue;
         }
 
-        var globalSuccessHandler = function(response) {
-            postbox.publish("ajaxSuccess", response);
+        var globalSuccessHandler = function (url, response) {
+            filmSite.loggingService.message("Ajax success to " + url);            
         }
 
         var globalErrorHandler = function(xhr, status, errorThrown) {
-            postbox.publish("ajaxError", { xhr: xhr, status: status, errorThrown: errorThrown });
+            filmSite.loggingService.error("Ajax error to " + URL + ": " + errorThrown);
         }
 
         var ajax = function (url, type, data, successCallback, errorCallback, options) {
@@ -35,13 +35,13 @@
                 dataType: getProperty(opts, "dataType", "json"),
                 data: data == null ? null : JSON.stringify(data),
                 success: function (response) {
-                    globalSuccessHandler(response);
+                    globalSuccessHandler(url, response);
                     if (success !== null) {
                         success(response);
                     }
                 },
                 error: function (xhr, status, errorThrown) {
-                    globalErrorHandler(xhr, status, errorThrown);
+                    globalErrorHandler(url, xhr, status, errorThrown);
                     if (error != null) {
                         error(xhr, status, errorThrown);
                     }
@@ -63,4 +63,4 @@
         }
     })();
 
-})(ko.postbox, window.filmSite = window.filmSite || {});
+})(window.filmSite = window.filmSite || {});

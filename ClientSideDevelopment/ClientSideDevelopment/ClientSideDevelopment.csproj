@@ -494,6 +494,7 @@
     <None Include="Scripts\jquery-1.8.2.intellisense.js" />
     <Content Include="Scripts\app\services\favouriteMovieService.js" />
     <Content Include="Scripts\app\services\httpService.js" />
+    <Content Include="Scripts\app\services\loggingService.js" />
     <Content Include="Scripts\app\services\rottenTomatoesService.js" />
     <Content Include="Scripts\app\viewmodels\add-movie.js" />
     <Content Include="Scripts\app\viewmodels\app.js" />
