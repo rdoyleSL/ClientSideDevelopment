@@ -16,11 +16,11 @@
         }
 
         var globalSuccessHandler = function (url, response) {
-            filmSite.loggingService.message("Ajax success to " + url);            
+            filmSite.loggingService.log("Ajax success (" + url + ")");
         }
 
         var globalErrorHandler = function(xhr, status, errorThrown) {
-            filmSite.loggingService.error("Ajax error to " + URL + ": " + errorThrown);
+            filmSite.loggingService.error("Ajax error (" + URL + "): " + errorThrown);
         }
 
         var ajax = function (url, type, data, successCallback, errorCallback, options) {
