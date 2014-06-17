@@ -24,14 +24,12 @@
 
             filmSite.favouriteMovieService.addMovie(
                 movie,
-                function(response) {
-                    if (response.success === true) {
-                        postbox.publish("movieAdded", movie);
-                        resetForm();
-                    }
+                function() {
+                    postbox.publish("movieAdded", movie);
+                    resetForm();
                 },
                 function() {
-                    alert('There was an error adding the movie.');
+                    filmSite.loggingService.log("There was an error adding the movie.");
                 }
             );
         };        

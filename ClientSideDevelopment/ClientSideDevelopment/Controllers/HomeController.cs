@@ -9,6 +9,7 @@
 
 namespace ClientSideDevelopment.Controllers
 {
+    using System;
     using System.Web.Mvc;
 
     using ClientSideDevelopment.Services.Abstract;
@@ -17,7 +18,7 @@ namespace ClientSideDevelopment.Controllers
     /// <summary>
     /// The home controller.
     /// </summary>
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         /// <summary>
         /// The movie service.
@@ -50,8 +51,15 @@ namespace ClientSideDevelopment.Controllers
         /// <returns>The collection of movies</returns>
         public JsonResult GetMovies()
         {
-            var movies = this.movieService.GetAllMovies();
-            return this.Json(movies, JsonRequestBehavior.AllowGet);
+            try
+            {
+                var movies = this.movieService.GetAllMovies();
+                return this.JsonSuccess(movies, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception exception)
+            {
+                return this.JsonError(exception.Message);                
+            }            
         }
 
         /// <summary>
@@ -66,8 +74,15 @@ namespace ClientSideDevelopment.Controllers
         [HttpPost]
         public JsonResult AddNewMovie(string title, int releaseYear, int rating)
         {
-            this.movieService.AddNewMovie(title, releaseYear, rating);
-            return this.Json(new { success = true });
+            try
+            {
+                this.movieService.AddNewMovie(title, releaseYear, rating);
+                return this.JsonSuccess();
+            }
+            catch (Exception exception)
+            {
+                return this.JsonError(exception.Message);
+            }
         }
     }
 }

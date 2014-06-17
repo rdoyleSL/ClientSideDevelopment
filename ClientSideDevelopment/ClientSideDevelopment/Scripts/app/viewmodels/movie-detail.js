@@ -23,7 +23,7 @@
                     movie(new filmSite.MovieViewModel(movieId, movieTitle, criticsConsensus));
                 },
                 function() {
-                    alert('There was an error retrieving related movies.');
+                    filmSite.loggingService.log("There was an error retrieving related movies.");
                 }
             );
         }
