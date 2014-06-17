@@ -11,22 +11,18 @@
                 rating: $("#rating option:selected").val()
             };
 
-            $.ajax({
-                url: "/Home/AddNewMovie",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(movie),
-                dataType: "json",
-                success: function (response) {
+            filmSite.favouriteMovieService.addMovie(
+                movie,
+                function(response) {
                     if (response.success === true) {
                         postbox.publish("movieAdded", movie);
                     }
                 },
-                error: function (xhr, status, error) {
+                function() {
                     alert('There was an error adding the movie.');
                 }
-            });
-        }
+            );
+        };        
 
         return {
             addMovie: addMovie            

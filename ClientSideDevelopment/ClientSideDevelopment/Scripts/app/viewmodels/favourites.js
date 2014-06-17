@@ -6,15 +6,10 @@
 
         function loadMovies() {
             movies.removeAll();
-            $.ajax({
-                url: "/Home/GetMovies",
-                type: "GET",
-                dataType: "json",
-                success: function (response) {
-                    for (var i = 0; i < response.length; i++) {
-                        var movie = response[i];
-                        movies.push(ko.observable(new filmSite.MovieInfoViewModel(movie.Title, movie.ReleaseYear, movie.Rating)));
-                    }
+            filmSite.favouriteMovieService.getMovies(function(response) {
+                for (var i = 0; i < response.length; i++) {
+                    var movie = response[i];
+                    movies.push(ko.observable(new filmSite.MovieInfoViewModel(movie.Title, movie.ReleaseYear, movie.Rating)));
                 }
             });
         }

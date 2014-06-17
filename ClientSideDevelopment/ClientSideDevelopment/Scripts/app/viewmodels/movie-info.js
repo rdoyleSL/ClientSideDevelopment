@@ -2,9 +2,9 @@
     "use strict";
 
     filmSite.MovieInfoViewModel = (function (title, year, rating) {
-        title = ko.observable(title);
-        year = ko.observable(year);
-        rating = ko.observable(rating);
+        title = ko.observable(title || null);
+        year = ko.observable(year || null);
+        rating = ko.observable(rating || null);
 
         return {
             title: title,

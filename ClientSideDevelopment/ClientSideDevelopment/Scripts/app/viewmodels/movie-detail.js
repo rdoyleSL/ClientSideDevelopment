@@ -16,6 +16,10 @@
                 type: "GET",
                 dataType: "jsonp",
                 success: function (response) {
+                    if (response.movies.length === 0) {
+                        return;
+                    }
+
                     var movieId = response.movies[0].id;
                     var criticsConsensus = response.movies[0].critics_consensus;
                     
