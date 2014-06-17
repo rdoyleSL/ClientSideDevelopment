@@ -16,26 +16,21 @@
                 <div>
                     <label>
                         Title: <small>required</small>
-                        <input type="text" id="movieTitle" name="movieTitle" required />
+                        <input type="text" data-bind="value: title" required />
                     </label>
                     <small class="error" data-error-message>Movie title is required.</small>
                 </div>
                 <div>
                     <label>
                         Release Year: <small>required</small>
-                        <input type="text" id="releaseYear" name="releaseYear" required pattern="\d{4}" />
+                        <input type="text" data-bind="value: releaseYear" required pattern="\d{4}" />
                     </label>
                     <small class="error" data-error-message>Release year is required (YYYY).</small>
                 </div>
                 <div>
                     <label>
-                        Rating:
-                        <select id="rating" name="rating">
-                            @for (var i = 1; i <= 10; i++)
-                            {
-                                <option value="@i">@i</option>
-                            }
-                        </select>
+                        Rating:                        
+                        <select data-bind="options: ratings, value: selectedRating"></select>
                     </label>
                 </div>
                 <button type="submit">Add new movie</button>
